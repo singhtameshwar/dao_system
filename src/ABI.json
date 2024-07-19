@@ -1,0 +1,239 @@
+[
+	{
+		"inputs": [
+			{
+				"internalType": "contract Nfttoken",
+				"name": "_token",
+				"type": "address"
+			},
+			{
+				"internalType": "contract Voting",
+				"name": "_votingcontract",
+				"type": "address"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "SetProposals",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "title",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "description",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "Yesvote",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "Novote",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "votingtimeperiod",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "Iscomplete",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "VoteId",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "voteid",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint232",
+				"name": "_proposalId",
+				"type": "uint232"
+			},
+			{
+				"internalType": "enum Proposal.votechoice",
+				"name": "_votechoice",
+				"type": "uint8"
+			}
+		],
+		"name": "Votingproposal",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_description",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_title",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_timeperiod",
+				"type": "uint256"
+			}
+		],
+		"name": "createproposal",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "proposals",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "title",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "description",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "Yesvote",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "Novote",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "votingtimeperiod",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "Iscomplete",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "token",
+		"outputs": [
+			{
+				"internalType": "contract Nfttoken",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "totalpostedproposal",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "title",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "description",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "Yesvote",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "Novote",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "votingtimeperiod",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "Iscomplete",
+						"type": "bool"
+					}
+				],
+				"internalType": "struct Proposal.prop[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
