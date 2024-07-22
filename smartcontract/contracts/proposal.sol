@@ -94,7 +94,7 @@ contract Proposal {
             }
         }
     }
-
+    
     function totalpostedproposal() external view returns (prop[] memory) {
         return SetProposals;
     }

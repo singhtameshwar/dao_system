@@ -9,11 +9,12 @@ import Col from 'react-bootstrap/Col';
 import "../App.css";
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
+// adding abi directly to the frontend
 // import Proposalabi from "../../smartcontract/artifacts/contracts/proposal.sol/Proposal.json"
 import ABI from '../ABI.json';
 
 export function Minting() {
-    const contractAddress = "0x5f7fF3F0cf063ECDde5897060D39a0ffb0b988F5";
+    const contractAddress = "0xE6B678cbb6fab582FEDEBAEE5839E0DCE337Bf95";
     const [signer, setSigner] = useState(null);
     const [provider, setProvider] = useState();
     const [yes, setYes] = useState(0);
@@ -22,6 +23,8 @@ export function Minting() {
     const [curProposal, setCurProposal] = useState("");
     const [curdisc, setcurdisc] = useState("");
     const [curtimeperiod, settimeperiod] = useState("1800");
+    const[ totalprop,setTotalprop]=useState("");
+ 
 
     async function connectAccount() {
         let initProvider;
@@ -39,23 +42,23 @@ export function Minting() {
     async function createprop(){
         const contract=new ethers.Contract(contractAddress,ABI,signer)
         const tx = await contract.createproposal(curProposal, curdisc, curtimeperiod);
-        console.log(tx);
         tx.wait()
     }
     async function totalproposal(){
         const contract=new ethers.Contract(contractAddress,ABI,provider);
-        const proposals=await contract.totalpostedproposal();
-        console.log(proposals);
+        const proposal = await contract.totalpostedproposal();
+        setTotalprop(proposal);
     }
-
 
     useEffect(() => {
         connectAccount();
     }, [])
 
-    // useEffect(()=>{
-    //     postedprop();
-    // })
+    useEffect(() => {
+        if (provider) {
+            totalproposal();
+        }
+    }, [provider]);
 
     return (
         <>
@@ -89,7 +92,7 @@ export function Minting() {
                 </Row>
             </Container>
             <Container>
-            <Button  variant="danger" onClick={totalproposal}>postedproposal</Button>{' '}
+            <Button  variant="danger" onClick={totalproposal}>postedproposal</Button>
             </Container>
             <Container className='seccont'>
                 {proposal.map((item, i) => (
