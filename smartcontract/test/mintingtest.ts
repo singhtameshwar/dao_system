@@ -39,7 +39,6 @@ describe("Daosmartcontract", function () {
     const proposalTitle = "Proposal Title"; 
     const timePeriod = 1800;
     const proposals =await proposal.connect(bob).createproposal(proposalDesc,proposalTitle,timePeriod);
-  
   })
 
   it("should vote for proposals", async function () {

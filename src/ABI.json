@@ -2,6 +2,29 @@
 	{
 		"inputs": [
 			{
+				"internalType": "string",
+				"name": "_description",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_title",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_timeperiod",
+				"type": "uint256"
+			}
+		],
+		"name": "createproposal",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "contract Nfttoken",
 				"name": "_token",
 				"type": "address"
@@ -18,12 +41,30 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
+				"internalType": "uint232",
+				"name": "_proposalId",
+				"type": "uint232"
+			},
+			{
+				"internalType": "enum Proposal.votechoice",
+				"name": "_votechoice",
+				"type": "uint8"
 			}
 		],
-		"name": "SetProposals",
+		"name": "Votingproposal",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "proposals",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -67,72 +108,12 @@
 	{
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"name": "VoteId",
-		"outputs": [
-			{
 				"internalType": "uint256",
-				"name": "voteid",
+				"name": "",
 				"type": "uint256"
 			}
 		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint232",
-				"name": "_proposalId",
-				"type": "uint232"
-			},
-			{
-				"internalType": "enum Proposal.votechoice",
-				"name": "_votechoice",
-				"type": "uint8"
-			}
-		],
-		"name": "Votingproposal",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_description",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_title",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_timeperiod",
-				"type": "uint256"
-			}
-		],
-		"name": "createproposal",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"name": "proposals",
+		"name": "SetProposals",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -231,6 +212,25 @@
 				"internalType": "struct Proposal.prop[]",
 				"name": "",
 				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "VoteId",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "voteid",
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
