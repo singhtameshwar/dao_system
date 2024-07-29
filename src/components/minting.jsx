@@ -1,13 +1,8 @@
-import Container from 'react-bootstrap/Container';
-import Button from 'react-bootstrap/Button';
-import Navbar from 'react-bootstrap/Navbar';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { ethers } from "ethers";
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import "../App.css";
-import Form from 'react-bootstrap/Form';
-import Card from 'react-bootstrap/Card';
+import {Card, Form, Row, Col, Navbar, Button, Container} from 'react-bootstrap';
 import React, { useState, useEffect } from 'react';
 // adding abi directly to the frontend
 // import Proposalabi from "../../smartcontract/artifacts/contracts/proposal.sol/Proposal.json"
@@ -17,14 +12,12 @@ export function Minting() {
     const contractAddress = "0xdeC0B13007FcC3fd8C7275cA6c006364b0a77bb9";
     const [signer, setSigner] = useState(null);
     const [provider, setProvider] = useState();
-    const [yes, setYes] = useState(0);
-    const [no, setNo] = useState(0);
     const [curprop, setprop] = useState("");
     const [curdisc, setcurdisc] = useState("");
     const [curtimeperiod, settimeperiod] = useState("604800");
     const [avilableprop, setTotalprop] = useState([]);
-    const [id, setproposalid] = useState("")
-    const [votechoice, setvotechoice] = useState("")
+    const[Yesvote, setYesvote]=useState("");
+    const[Novote, setNovote]=useState("");
 
     async function ConnectAccount() {
         let initProvider;
@@ -50,7 +43,6 @@ export function Minting() {
         const contract = new ethers.Contract(contractAddress, ABI, provider);
         const proposal = await contract.totalpostedproposal();
         setTotalprop(proposal);
-        
     }
 
     async function voteProp(id, votechoice) {
@@ -58,6 +50,7 @@ export function Minting() {
         const tx = await contract.votingProposal(id, votechoice);
          tx.wait();
     }
+      
 
     useEffect(() => {
         ConnectAccount();
@@ -129,12 +122,10 @@ export function Minting() {
                                         <Col>
                                             <div id="no">{Number(item.Novote)}</div>
                                         </Col>
-                                        <Col>
-                                        <div>result</div>
-                                        </Col>
                                     </Row>
                                 </Card.Body>
                             </Card>
+                            <p>{Number(item.Yesvote) > Number(item.Novote) ? "Proposal is accepted" : "Not accepted"}</p>
                         </Col>
                     </Row>
                 ))}
