@@ -36,8 +36,8 @@ describe("Daosmartcontract", function () {
     const safemint=await token.safeMint(bob.getAddress());
     const canpropose = await controler.Canpropose(bob.getAddress());
     const proposalDesc = "Description of my proposal";
-    const proposalTitle = "Proposal Title"; 
-    const timePeriod = 1800;
+    const proposalTitle = "Proposal Title";
+    const timePeriod = 604800;
     const proposals =await proposal.connect(bob).createproposal(proposalDesc,proposalTitle,timePeriod);
   })
 

@@ -14,15 +14,17 @@ import React, { useState, useEffect } from 'react';
 import ABI from '../ABI.json';
 
 export function Minting() {
-    const contractAddress = "0x3fCA50C872Ef5CC727fF3a6C7055ceb77fD1fA85";
+    const contractAddress = "0xdeC0B13007FcC3fd8C7275cA6c006364b0a77bb9";
     const [signer, setSigner] = useState(null);
     const [provider, setProvider] = useState();
     const [yes, setYes] = useState(0);
     const [no, setNo] = useState(0);
-    const [curProposal, setCurProposal] = useState("");
+    const [curprop, setprop] = useState("");
     const [curdisc, setcurdisc] = useState("");
-    const [curtimeperiod, settimeperiod] = useState("1800");
+    const [curtimeperiod, settimeperiod] = useState("604800");
     const [avilableprop, setTotalprop] = useState([]);
+    const [id, setproposalid] = useState("")
+    const [votechoice, setvotechoice] = useState("")
 
     async function ConnectAccount() {
         let initProvider;
@@ -38,92 +40,106 @@ export function Minting() {
         }
     }
 
-        async function Createprop() {
-            const contract = new ethers.Contract(contractAddress, ABI, signer)
-            const tx = await contract.createproposal(curProposal, curdisc, curtimeperiod);
-            tx.wait()
-        }
-
-        async function totalproposal() {
-            const contract = new ethers.Contract(contractAddress, ABI, provider);
-            const proposal = await contract.totalpostedproposal();
-            setTotalprop(proposal);
-        }
-
-        useEffect(() => {
-            ConnectAccount();
-        },[])
-
-        useEffect(() => {
-            if (provider) {
-                totalproposal();
-            }},[provider]);
-
-        return (
-            <>
-                <Navbar bg="dark" data-bs-theme="dark">
-                    <Container>
-                        <Navbar.Brand href="#home">DAo.</Navbar.Brand>
-                    </Container>
-                </Navbar>
-                <Container className="mt-4">
-                    {
-                        signer ? (signer.address) : (
-                            <Button onClick={ConnectAccount}></Button>
-                        )
-                    }
-                </Container>
-                <Container className='firstcont'>
-                    <Row>
-                        <Col>
-                            <Form name="form">
-                                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                    <Form.Label>Proposal</Form.Label>
-                                    <Form.Control type="text" onChange={(e) => setCurProposal(e.target.value)} />
-                                    <Form.Label>discription</Form.Label>
-                                    <Form.Control type="text" onChange={(e) => setcurdisc(e.target.value)} />
-                                </Form.Group>
-                            </Form>
-                        </Col>
-                        <Col>
-                            <Button className="button" onClick={Createprop}>Create-Proposal</Button>
-                        </Col>
-                    </Row>
-                </Container>
-                <Container>
-                    <Button variant="danger" onClick={totalproposal}>postedproposal</Button>
-                </Container>
-                <Container className='seccond'>
-                    {avilableprop.map((item, i) => (
-                        <Row key={i} className='mt-3'>
-                            <Col >
-                                <Card>
-                                    <Card.Body>
-                                        <Col id="proposal">
-                                         {item}
-                                        </Col>
-                                        <Row>
-                                            <Col>
-                                                <Button variant="outline-success" onClick={() => setYes(yes + 1)}>YES</Button>
-                                            </Col>
-                                            <Col>
-                                                <div id="yes">{yes}</div>
-                                            </Col>
-                                            <Col>
-                                                <Button variant="outline-danger" onClick={() => setNo(no + 1)}>NO</Button>
-                                            </Col>
-                                            <Col>
-                                                <div id="no">{no}</div>
-                                            </Col>
-                                        </Row>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                        </Row>
-                  ))}
-                </Container>
-            </>
-        )
+    async function Createprop() {
+        const contract = new ethers.Contract(contractAddress, ABI, signer)
+        const tx = await contract.createproposal(curprop, curdisc, curtimeperiod);
+        tx.wait()
     }
 
+    async function totalproposal() {
+        const contract = new ethers.Contract(contractAddress, ABI, provider);
+        const proposal = await contract.totalpostedproposal();
+        setTotalprop(proposal);
+        
+    }
+
+    async function voteProp(id, votechoice) {
+        const contract = new ethers.Contract(contractAddress, ABI, signer);
+        const tx = await contract.votingProposal(id, votechoice);
+         tx.wait();
+    }
+
+    useEffect(() => {
+        ConnectAccount();
+    }, [])
+
+    useEffect(() => {
+        if (provider) {
+            totalproposal();
+        }
+    }, [provider]);
+
+    return (
+        <>
+            <Navbar bg="dark" data-bs-theme="dark">
+                <Container>
+                    <Navbar.Brand href="#home">DAo.</Navbar.Brand>
+                </Container>
+            </Navbar>
+            <Container className="mt-4">
+                {
+                    signer ? (signer.address) : (
+                        <Button onClick={ConnectAccount}></Button>
+                    )
+                }
+            </Container>
+            <Container className='firstcont'>
+                <Row>
+                    <Col>
+                        <Form name="form">
+                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                <Form.Label>proposal_Title:</Form.Label>
+                                <Form.Control type="text" onChange={(e) => setprop(e.target.value)} />
+                                <Form.Label>proposal_Discription:</Form.Label>
+                                <Form.Control type="text" onChange={(e) => setcurdisc(e.target.value)} />
+                            </Form.Group>
+                        </Form>
+                    </Col>
+                    <Col>
+                        <Button className="button" onClick={Createprop}>Create-Proposal</Button>
+                    </Col>
+                </Row>
+            </Container>
+            <Container>
+                <Button variant="danger" onClick={totalproposal}>postedproposal</Button>
+            </Container>
+            <Container className='seccond'>
+                {avilableprop.map((item, i) => (
+                    <Row key={i} className='mt-3'>
+                        <Col>
+                            <Card>
+                                <Card.Body>
+                                    <Col id="proposal">
+                                        title:{item.title}
+                                    </Col>
+                                    <Col id="proposal">
+                                        description:{item.description}
+                                    </Col>
+                                    <Row>
+                                        <Col>
+                                            {/* here bigintnumber will changed into numbers id changed */}
+                                            <Button variant="outline-success" onClick={() => voteProp(Number(item.id), 0)}>YES</Button>
+                                        </Col>
+                                        <Col>
+                                            <div id="yes">{Number(item.Yesvote)}</div>
+                                        </Col>
+                                        <Col>
+                                            <Button variant="outline-danger" onClick={() => voteProp(Number(item.id), 1)}>NO</Button>
+                                        </Col>
+                                        <Col>
+                                            <div id="no">{Number(item.Novote)}</div>
+                                        </Col>
+                                        <Col>
+                                        <div>result</div>
+                                        </Col>
+                                    </Row>
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                    </Row>
+                ))}
+            </Container>
+        </>
+    )
+}
 

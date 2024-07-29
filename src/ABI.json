@@ -3,12 +3,12 @@
 		"inputs": [
 			{
 				"internalType": "string",
-				"name": "_description",
+				"name": "_title",
 				"type": "string"
 			},
 			{
 				"internalType": "string",
-				"name": "_title",
+				"name": "_description",
 				"type": "string"
 			},
 			{
@@ -51,9 +51,16 @@
 				"type": "uint8"
 			}
 		],
-		"name": "Votingproposal",
+		"name": "votingProposal",
 		"outputs": [],
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getvote",
+		"outputs": [],
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{

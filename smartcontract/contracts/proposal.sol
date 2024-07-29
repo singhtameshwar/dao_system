@@ -41,8 +41,8 @@ contract Proposal {
     }
 
     function createproposal(
+          string memory _title,
         string memory _description,
-        string memory _title,
         uint256 _timeperiod
     ) public {
         require(
@@ -53,20 +53,19 @@ contract Proposal {
         proposalid += 1;
         
         prop memory newProposal = prop({
-            id: proposalid,
-            title: _title,
-            description: _description,
-            Yesvote: 0,
-            Novote: 0,
-            votingtimeperiod: block.timestamp + _timeperiod,
-            Iscomplete: false
+               id: proposalid,
+               title: _title,
+                description: _description,
+                Yesvote: 0,
+                Novote: 0,
+                votingtimeperiod: block.timestamp + _timeperiod,
+                Iscomplete: false
         });
-
         proposals[msg.sender] = newProposal;
         SetProposals.push(newProposal);
     }
 
-    function Votingproposal(
+    function votingProposal(
         uint232 _proposalId,
         votechoice _votechoice
     ) external {
