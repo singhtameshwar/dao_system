@@ -1,46 +1,39 @@
-# Getting Started with Create React App
+### DAO smart contract
+This Project is deployed on the Rimix..
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+proposal-Smart contract address: 0xdeC0B13007FcC3fd8C7275cA6c006364b0a77bb9
 
-## Available Scripts
+## Usage
+How to clone and run this project
 
-In the project directory, you can run:
+Clone this repository : git clone git@github.com:singhtameshwar/dao_system.git
+Installing dependencies : npm install
+Compile the smart contracts with Hardhat : npx hardhat compile
+Run the tests : npx hardhat test
+Deploy contract to network : npx hardhat run --network rinkeby scripts/deploy.ts
+## About
+The proposal smart contract is used to add some proposals and vote on them, this contract is controlled by the require smart contract which is responsible for all the controlling actions. This smart contract decide weather user can submit proposal or vote for any proposal. The controller smart contract is also protect users with the time lock e.g. if any proposal is accepted only admin can execute that proposal and admin can only execute after 1 week of acceptance so the users can be ready for the implementation of new proposal.
 
-### `npm start`
+Governance smart contract will be created after the creation of ERC20 token (Voting Token) because the DAO smart contract (governance) need parameters of token address in its constructor.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+constructor(VotingToken _token) {}
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Roles
+Voter : Must have at least 1 nft token
+Proposer : Must have at least 1 nft Tokens
+How to add Proposal
+In proposal smart contract function createProposal() is used to add proposal.
 
-### `npm test`
+this function has following arguments:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+string memory _title : It is name of the proposal.
+string memory _description : It is the description of the proposal.
+uint256 _votingtimePeriod : Voting Time in weeks
+How to Vote for Proposal
+The votingProposal() function is used to complete the process of voting
 
-### `npm run build`
+This function need two arguments:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+uint256 _proposalId - Proposal Id
+ votechoice _votechoice- where VoteFor is an enum which has two values {YES(0) and NO(1)}
+In require  contract there are few more functions
